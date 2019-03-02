@@ -2,7 +2,7 @@
   "name": "convnetjs2",
   "version": "2.0.0",
   "description": "ConvNetJs -- Version 2",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "test": "test"
   },
