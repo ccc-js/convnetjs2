@@ -12,7 +12,7 @@ ConvNetJs2 is a Javascript implementation of Neural networks, together with nice
 
 For much more information, see the ConvNetJs2 main page at [https://ccc-js.github.io/convnetjs2demo/](https://ccc-js.github.io/convnetjs2demo/)
 
-**Note**: I am not actively maintaining ConvNetJS anymore because I simply don't have time. I think the npm repo might not work at this point.
+**Note**: @karpathy is not actively maintaining [ConvNetJS](https://github.com/karpathy/convnetjs) anymore because he don't have time. So @ccckmit fork the project and rename it to [ConvNetJs2](https://github.com/ccc-js/convnetjs2).
 
 ## Online Demos
 - [Convolutional Neural Network on MNIST digits](https://ccc-js.github.io/convnetjs2demo/demo/mnist.html)
@@ -97,15 +97,19 @@ var output_probabilities_vol = net.forward(x)
 ```
 
 ## Getting Started
+
 A [Getting Started](https://ccc-js.github.io/convnetjs2demo/started.html) tutorial is available on main page.
 
 The full [Documentation](https://ccc-js.github.io/convnetjs2demo/docs.html) can also be found there.
 
-See the **releases** page for this project to get the minified, compiled library, and a direct link to is also available below for convenience (but please host your own copy)
+See the [build/convnet.js](build/convnet.js) page for this project to get the ConvNetJs2 library. 
 
-- [convnet.js](http://cs.stanford.edu/people/karpathy/convnetjs/build/convnet.js)
+You may download a copy from the following direct link.
+
+* direct link -- https://raw.githubusercontent.com/ccc-js/convnetjs2/master/build/convnet.js
 
 ## Compiling the library from src/ to build/
+
 If you would like to add features to the library, you will have to change the code in `src/` and then compile the library into the `build/` directory. The compilation script simply concatenates files in `src/` and then minifies the result.
 
 The compilation is done using an npm script by browserify
