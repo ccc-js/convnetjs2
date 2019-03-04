@@ -110,7 +110,7 @@ You may download a copy from the following direct link.
 
 ## Compiling the library from src/ to build/
 
-If you would like to add features to the library, you will have to change the code in `src/` and then compile the library into the `build/` directory. The compilation script simply concatenates files in `src/` and then minifies the result.
+If you would like to add features to the library, you will have to change the code in `src/` and then compile the library into the `build/` directory. The compilation script use [browserify](http://browserify.org/) to generate the distribute file for web browser.
 
 The compilation is done using an npm script by browserify
 
