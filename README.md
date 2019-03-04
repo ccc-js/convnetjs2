@@ -1,28 +1,34 @@
 
-# ConvNetJS
+# ConvNetJs2
 
-ConvNetJS is a Javascript implementation of Neural networks, together with nice browser-based demos. It currently supports:
+ConvNetJs2 is a successor of the [ConvNetJS project](https://github.com/karpathy/convnetjs) 。
+
+ConvNetJs2 is a Javascript implementation of Neural networks, together with nice browser-based demos. It currently supports:
 
 - Common **Neural Network modules** (fully connected layers, non-linearities)
 - Classification (SVM/Softmax) and Regression (L2) **cost functions**
 - Ability to specify and train **Convolutional Networks** that process images
 - An experimental **Reinforcement Learning** module, based on Deep Q Learning
 
-For much more information, see the main page at [convnetjs.com](http://convnetjs.com)
+For much more information, see the ConvNetJs2 main page at [https://ccc-js.github.io/convnetjs2demo/](https://ccc-js.github.io/convnetjs2demo/)
 
 **Note**: I am not actively maintaining ConvNetJS anymore because I simply don't have time. I think the npm repo might not work at this point.
 
 ## Online Demos
-- [Convolutional Neural Network on MNIST digits](http://cs.stanford.edu/~karpathy/convnetjs/demo/mnist.html)
-- [Convolutional Neural Network on CIFAR-10](http://cs.stanford.edu/~karpathy/convnetjs/demo/cifar10.html)
-- [Toy 2D data](http://cs.stanford.edu/~karpathy/convnetjs/demo/classify2d.html)
-- [Toy 1D regression](http://cs.stanford.edu/~karpathy/convnetjs/demo/regression.html)
-- [Training an Autoencoder on MNIST digits](http://cs.stanford.edu/~karpathy/convnetjs/demo/autoencoder.html)
+- [Convolutional Neural Network on MNIST digits](https://ccc-js.github.io/convnetjs2demo/demo/mnist.html)
+- [Convolutional Neural Network on CIFAR-10](https://ccc-js.github.io/convnetjs2demo/demo/cifar10.html)
+- [Toy 2D data](https://ccc-js.github.io/convnetjs2demo/demo/classify2d.html)
+- [Toy 1D regression](https://ccc-js.github.io/convnetjs2demo/demo/regression.html)
+- [Training an Autoencoder on MNIST digits](https://ccc-js.github.io/convnetjs2demo/demo/autoencoder.html)
 - [Deep Q Learning Reinforcement Learning demo](http://cs.stanford.edu/people/karpathy/convnetjs/demo/rldemo.html)
-- [Image Regression ("Painting")](http://cs.stanford.edu/~karpathy/convnetjs/demo/image_regression.html)
-- [Comparison of SGD/Adagrad/Adadelta on MNIST](http://cs.stanford.edu/people/karpathy/convnetjs/demo/trainers.html)
+- [Image Regression ("Painting")](https://ccc-js.github.io/convnetjs2demo/demo/image_regression.html)
+- [Comparison of SGD/Adagrad/Adadelta on MNIST](https://ccc-js.github.io/convnetjs2demo/demo/trainers.html)
 
 ## Example Code
+
+You may found more node.js examples for the ConvNetJs2 in the following project.
+
+* https://github.com/ccc-js/convnetjs2example
 
 Here's a minimum example of defining a **2-layer neural network** and training
 it on a single data point:
@@ -91,28 +97,30 @@ var output_probabilities_vol = net.forward(x)
 ```
 
 ## Getting Started
-A [Getting Started](http://cs.stanford.edu/people/karpathy/convnetjs/started.html) tutorial is available on main page.
+A [Getting Started](https://ccc-js.github.io/convnetjs2demo/started.html) tutorial is available on main page.
 
-The full [Documentation](http://cs.stanford.edu/people/karpathy/convnetjs/docs.html) can also be found there.
+The full [Documentation](https://ccc-js.github.io/convnetjs2demo/docs.html) can also be found there.
 
 See the **releases** page for this project to get the minified, compiled library, and a direct link to is also available below for convenience (but please host your own copy)
 
 - [convnet.js](http://cs.stanford.edu/people/karpathy/convnetjs/build/convnet.js)
-- [convnet-min.js](http://cs.stanford.edu/people/karpathy/convnetjs/build/convnet-min.js)
 
 ## Compiling the library from src/ to build/
 If you would like to add features to the library, you will have to change the code in `src/` and then compile the library into the `build/` directory. The compilation script simply concatenates files in `src/` and then minifies the result.
 
-The compilation is done using an ant task: it compiles `build/convnet.js` by concatenating the source files in `src/` and then minifies the result into `build/convnet-min.js`. Make sure you have **ant** installed (on Ubuntu you can simply *sudo apt-get install* it), then cd into `compile/` directory and run:
+The compilation is done using an npm script by browserify
 
-    $ ant -lib yuicompressor-2.4.8.jar -f build.xml
+    $ npm run build
 
 The output files will be in `build/`
+
 ## Use in Node
+
 The library is also available on *node.js*:
 
-1. Install it: `$ npm install convnetjs`
-2. Use it: `var convnetjs = require("convnetjs");`
+1. Install it: `$ npm install convnetjs2`
+2. Use it: `var convnetjs = require("convnetjs2");`
 
 ## License
+
 MIT
