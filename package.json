@@ -20,7 +20,10 @@
     "deepLearning",
     "neuralnet"
   ],
-  "author": "kaparthy, ccckmit",
+  "author": "ccckmit <ccckmit@gmail.com> (http://github.com/ccckmit)",
+  "contributors": [
+    "karpathy <https://twitter.com/karpathy> (http://github.com/karpathy)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ccc-js/convnetjs2/issues"
