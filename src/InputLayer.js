@@ -15,12 +15,12 @@ var InputLayer = module.exports = function(opt) {
   this.layer_type = 'input';
 }
 InputLayer.prototype = {
-  forward: function(V, is_training) {
+  forward: function(V, is_training) { // 輸入層: 資料直接通過
     this.in_act = V;
     this.out_act = V;
     return this.out_act; // simply identity function for now
   },
-  backward: function() { },
+  backward: function() { }, // 輸入層: 沒有反向傳遞的需要
   getParamsAndGrads: function() {
     return [];
   },

@@ -28,6 +28,7 @@ var Trainer = module.exports = function(net, options) {
     this.regression = false;
 }
 
+// 學習主程式 -- 梯度下降法
 Trainer.prototype = {
   train: function(x, y) {
 

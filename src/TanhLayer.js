@@ -35,7 +35,7 @@ TanhLayer.prototype = {
     V.dw = Util.zeros(N); // zero out gradient wrt data
     for(var i=0;i<N;i++) {
       var v2wi = V2.w[i];
-      V.dw[i] = (1.0 - v2wi * v2wi) * V2.dw[i];
+      V.dw[i] = (1.0 - v2wi * v2wi) * V2.dw[i]; // tanh 函數的梯度 dtanh(x)/dx
     }
   },
   getParamsAndGrads: function() {

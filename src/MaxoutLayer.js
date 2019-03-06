@@ -1,5 +1,6 @@
 const Util = require('./Util')
-
+// 關於 MaxOut 層請參考 -- 深度学习（二十三）Maxout网络学习
+// -- https://blog.csdn.net/hjimce/article/details/50414467
 // Implements Maxout nnonlinearity that computes
 // x -> max(x)
 // where x is a vector of size group_size. Ideally of course,

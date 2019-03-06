@@ -3,11 +3,24 @@ const Vol = require('./Vol')
 
 var U = module.exports = {}
 
+/* 擴增，調整： 例如在 images-demo.js 裡有
+
+        test_variation = convnetjs.augment(test_variation, image_dimension, dx, dy, false);
+      }
+      
+      if(random_flip){
+        test_variation = convnetjs.augment(test_variation, image_dimension, 0, 0, Math.random()<0.5); 
+      }
+
+在 mnistPredict.js 裡有
+
+      x = convnetjs.augment(x, 24)
+*/
 // Volume utilities
-// intended for use with data augmentation
-// crop is the size of output
-// dx,dy are offset wrt incoming volume, of the shift
-// fliplr is boolean on whether we also want to flip left<->right
+// intended for use with data augmentation (資料擴增)
+// crop is the size of output (調整後大小)
+// dx,dy are offset wrt incoming volume, of the shift (位移量 ?? 應該是為了讓訓練效果在位移後不變，能夠抓到真正的特徵)
+// fliplr is boolean on whether we also want to flip left<->right (是否要左右翻轉)
 U.augment = function(V, crop, dx, dy, fliplr) {
   // note assumes square outputs of size crop x crop
   if(typeof(fliplr)==='undefined') var fliplr = false;
@@ -45,6 +58,7 @@ U.augment = function(V, crop, dx, dy, fliplr) {
   return W;
 }
 
+// 將 HTML DOM 中的影像 Image 轉換為 Vol 物件
 // img is a DOM element that contains a loaded image
 // returns a Vol of size (W, H, 4). 4 is for RGBA
 U.img_to_vol = function(img, convert_grayscale) {

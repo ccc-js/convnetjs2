@@ -1,5 +1,5 @@
 const Util = require('./Util')
-
+// Vol 就是張量 (Tensor)，在此是採用固定的三維張量
 // Vol is the basic building block of all data in a net.
 // it is essentially just a 3D volume of numbers, with a
 // width (sx), height (sy), and depth (depth).
@@ -9,7 +9,7 @@ const Util = require('./Util')
 // with. If c is missing, fills the Vol with random numbers.
 var Vol = module.exports = function(sx, sy, depth, c) {
   // this is how you check if a variable is an array. Oh, Javascript :)
-  if(Object.prototype.toString.call(sx) === '[object Array]') {
+  if(Object.prototype.toString.call(sx) === '[object Array]') { // sx 是陣列，代表是一維的初始值
     // we were given a list in sx, assume 1D volume and fill it up
     this.sx = 1;
     this.sy = 1;
@@ -21,7 +21,7 @@ var Vol = module.exports = function(sx, sy, depth, c) {
     for(var i=0;i<this.depth;i++) {
       this.w[i] = sx[i];
     }
-  } else {
+  } else { // 否則就是三維的 (sx, sy, depth) 情況
     // we were given dimensions of the vol
     this.sx = sx;
     this.sy = sy;
@@ -46,11 +46,11 @@ var Vol = module.exports = function(sx, sy, depth, c) {
 }
 
 Vol.prototype = {
-  get: function(x, y, d) { 
+  get: function(x, y, d) { // 取得 Vol(x,y,d) 元素
     var ix=((this.sx * y)+x)*this.depth+d;
     return this.w[ix];
   },
-  set: function(x, y, d, v) { 
+  set: function(x, y, d, v) { // 設定 Vol(x,y,d) 元素為 v
     var ix=((this.sx * y)+x)*this.depth+d;
     this.w[ix] = v; 
   },

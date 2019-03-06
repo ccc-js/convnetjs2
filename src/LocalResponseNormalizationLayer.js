@@ -1,5 +1,6 @@
 const Util = require('./Util')
 
+// 這個函數是實驗性質，好像沒有在任何範例裡用到
 // a bit experimental layer for now. I think it works but I'm not 100%
 // the gradient check is a bit funky. I'll look into this a bit later.
 // Local Response Normalization in window, along depths of volumes

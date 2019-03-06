@@ -1,6 +1,6 @@
 const Vol = require('./Vol')
 const Util = require('./Util')
-
+// 全連接層: 攤平後兩層節點 n 對 m 全部互連
 var FullyConnLayer = module.exports = function(opt) {
   var opt = opt || {};
 
@@ -13,14 +13,14 @@ var FullyConnLayer = module.exports = function(opt) {
   this.l2_decay_mul = typeof opt.l2_decay_mul !== 'undefined' ? opt.l2_decay_mul : 1.0;
 
   // computed
-  this.num_inputs = opt.in_sx * opt.in_sy * opt.in_depth;
+  this.num_inputs = opt.in_sx * opt.in_sy * opt.in_depth; // 攤平後的節點數
   this.out_sx = 1;
   this.out_sy = 1;
   this.layer_type = 'fc';
 
   // initializations
   var bias = typeof opt.bias_pref !== 'undefined' ? opt.bias_pref : 0.0;
-  this.filters = [];
+  this.filters = []; // ?? filter 是做甚麼用的 ??
   for(var i=0;i<this.out_depth ;i++) { this.filters.push(new Vol(1, 1, this.num_inputs)); }
   this.biases = new Vol(1, 1, this.out_depth, bias);
 }
@@ -33,10 +33,11 @@ FullyConnLayer.prototype = {
     for(var i=0;i<this.out_depth;i++) {
       var a = 0.0;
       var wi = this.filters[i].w;
+      // 計算全部互聯的加總值
       for(var d=0;d<this.num_inputs;d++) {
         a += Vw[d] * wi[d]; // for efficiency use Vols directly for now
       }
-      a += this.biases.w[i];
+      a += this.biases.w[i]; // 再加上 bias ，得到輸出結果
       A.w[i] = a;
     }
     this.out_act = A;

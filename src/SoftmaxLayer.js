@@ -26,6 +26,7 @@ SoftmaxLayer.prototype = {
 
     var A = new Vol(1, 1, this.out_depth, 0.0);
 
+    // 接下來計算 Softmax() 函數，請參考 https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0
     // compute max activation
     var as = V.w;
     var amax = V.w[0];
@@ -58,9 +59,10 @@ SoftmaxLayer.prototype = {
     var x = this.in_act;
     x.dw = Util.zeros(x.w.length); // zero out the gradient of input Vol
 
+    // Softmax 的梯度計算是 input.grad = output.value * (1 - output.value) * output.grad
     for(var i=0;i<this.out_depth;i++) {
       var indicator = i === y ? 1.0 : 0.0;
-      var mul = -(indicator - this.es[i]);
+      var mul = -(indicator - this.es[i]); // 這裡的 es[i] 來自 forward，就是 output.value
       x.dw[i] = mul;
     }
 

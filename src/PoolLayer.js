@@ -30,16 +30,16 @@ PoolLayer.prototype = {
   forward: function(V, is_training) {
     this.in_act = V;
 
-    var A = new Vol(this.out_sx, this.out_sy, this.out_depth, 0.0);
+    var A = new Vol(this.out_sx, this.out_sy, this.out_depth, 0.0); // PoolLayer 的輸出張量
     
     var n=0; // a counter for switches
     for(var d=0;d<this.out_depth;d++) {
-      var x = -this.pad;
-      var y = -this.pad;
+      var x = -this.pad; // x 軸超出部分
+      var y = -this.pad; // y 軸超出部分
       for(var ax=0; ax<this.out_sx; x+=this.stride,ax++) {
-        y = -this.pad;
+        y = -this.pad; // y 軸超出部分
         for(var ay=0; ay<this.out_sy; y+=this.stride,ay++) {
-
+          // 接下來尋找 (stride*stride) 區塊的最大值。
           // convolve centered at this particular location
           var a = -99999; // hopefully small enough ;\
           var winx=-1,winy=-1;
@@ -52,14 +52,15 @@ PoolLayer.prototype = {
                 // perform max pooling and store pointers to where
                 // the max came from. This will speed up backprop 
                 // and can help make nice visualizations in future
-                if(v > a) { a = v; winx=ox; winy=oy;}
+                if(v > a) { a = v; winx=ox; winy=oy;} // 取得最大值
               }
             }
           }
+          // switch(x,y) 紀錄該 MaxPool 區塊的最大值位置，之後計算反傳遞梯度時會需要
           this.switchx[n] = winx;
           this.switchy[n] = winy;
           n++;
-          A.set(ax, ay, d, a);
+          A.set(ax, ay, d, a); // 設定 MaxPool 縮小後的輸出值
         }
       }
     }
@@ -82,7 +83,7 @@ PoolLayer.prototype = {
         for(var ay=0; ay<this.out_sy; y+=this.stride,ay++) {
 
           var chain_grad = this.out_act.get_grad(ax,ay,d);
-          V.add_grad(this.switchx[n], this.switchy[n], d, chain_grad);
+          V.add_grad(this.switchx[n], this.switchy[n], d, chain_grad); // 將 MaxPool 區塊的最大梯度反傳遞回去
           n++;
 
         }

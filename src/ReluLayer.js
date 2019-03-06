@@ -19,7 +19,7 @@ ReluLayer.prototype = {
     var N = V.w.length;
     var V2w = V2.w;
     for(var i=0;i<N;i++) { 
-      if(V2w[i] < 0) V2w[i] = 0; // threshold at 0
+      if(V2w[i] < 0) V2w[i] = 0; // threshold at 0  (Relu 就是把低於零的截掉)
     }
     this.out_act = V2;
     return this.out_act;
@@ -30,8 +30,8 @@ ReluLayer.prototype = {
     var N = V.w.length;
     V.dw = Util.zeros(N); // zero out gradient wrt data
     for(var i=0;i<N;i++) {
-      if(V2.w[i] <= 0) V.dw[i] = 0; // threshold
-      else V.dw[i] = V2.dw[i];
+      if(V2.w[i] <= 0) V.dw[i] = 0; // threshold (低於零的梯度為 0)
+      else V.dw[i] = V2.dw[i]; // (高於零的梯度不變)
     }
   },
   getParamsAndGrads: function() {

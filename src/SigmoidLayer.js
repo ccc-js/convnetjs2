@@ -20,7 +20,7 @@ SigmoidLayer.prototype = {
     var V2w = V2.w;
     var Vw = V.w;
     for(var i=0;i<N;i++) { 
-      V2w[i] = 1.0/(1.0+Math.exp(-Vw[i]));
+      V2w[i] = 1.0/(1.0+Math.exp(-Vw[i])); // 這就是 Sigmoid(x) 函數的定義
     }
     this.out_act = V2;
     return this.out_act;
@@ -32,7 +32,7 @@ SigmoidLayer.prototype = {
     V.dw = Util.zeros(N); // zero out gradient wrt data
     for(var i=0;i<N;i++) {
       var v2wi = V2.w[i];
-      V.dw[i] =  v2wi * (1.0 - v2wi) * V2.dw[i];
+      V.dw[i] =  v2wi * (1.0 - v2wi) * V2.dw[i]; // 這就是 Sigmoid 函數的梯度函數 dSigmoid(x)/dx
     }
   },
   getParamsAndGrads: function() {

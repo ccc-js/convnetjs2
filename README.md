@@ -20,7 +20,7 @@ For much more information, see the ConvNetJs2 main page at [https://ccc-js.githu
 - [Toy 2D data](https://ccc-js.github.io/convnetjs2demo/demo/classify2d.html)
 - [Toy 1D regression](https://ccc-js.github.io/convnetjs2demo/demo/regression.html)
 - [Training an Autoencoder on MNIST digits](https://ccc-js.github.io/convnetjs2demo/demo/autoencoder.html)
-- [Deep Q Learning Reinforcement Learning demo](http://cs.stanford.edu/people/karpathy/convnetjs/demo/rldemo.html)
+- [Deep Q Learning Reinforcement Learning demo](https://ccc-js.github.io/convnetjs2demo/demo/rldemo.html)
 - [Image Regression ("Painting")](https://ccc-js.github.io/convnetjs2demo/demo/image_regression.html)
 - [Comparison of SGD/Adagrad/Adadelta on MNIST](https://ccc-js.github.io/convnetjs2demo/demo/trainers.html)
 

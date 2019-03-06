@@ -17,18 +17,18 @@ Net.prototype = {
     assert(defs[0].type === 'input', 'Error! First layer must be the input layer, to declare size of inputs');
 
     // desugar layer_defs for adding activation, dropout layers etc
-    var desugar = function() {
+    var desugar = function() { // de-sugar: 去糖化，加入一些使用者不須操心的預設層次 ...
       var new_defs = [];
       for(var i=0;i<defs.length;i++) {
         var def = defs[i];
         
-        if(def.type==='softmax' || def.type==='svm') {
+        if(def.type==='softmax' || def.type==='svm') { // softmax, svm 前先加入一層全連接層
           // add an fc layer here, there is no reason the user should
           // have to worry about this and we almost always want to
-          new_defs.push({type:'fc', num_neurons: def.num_classes});
+          new_defs.push({type:'fc', num_neurons: def.num_classes}); 
         }
 
-        if(def.type==='regression') {
+        if(def.type==='regression') { // regression 前先加入一層全連接層
           // add an fc layer here, there is no reason the user should
           // have to worry about this and we almost always want to
           new_defs.push({type:'fc', num_neurons: def.num_neurons});
@@ -38,6 +38,7 @@ Net.prototype = {
             && typeof(def.bias_pref) === 'undefined'){
           def.bias_pref = 0.0;
           if(typeof def.activation !== 'undefined' && def.activation === 'relu') {
+            // 使用 LeakyRelu 避免 Relu 落入停止不動點 
             def.bias_pref = 0.1; // relus like a bit of positive bias to get gradients early
             // otherwise it's technically possible that a relu unit will never turn on (by chance)
             // and will never get any gradient and never contribute any computation. Dead relu.
@@ -57,7 +58,7 @@ Net.prototype = {
           }
           else { console.log('ERROR unsupported activation ' + def.activation); }
         }
-        if(typeof def.drop_prob !== 'undefined' && def.type !== 'dropout') {
+        if(typeof def.drop_prob !== 'undefined' && def.type !== 'dropout') { // 有設定 drop_prob，所以要執行 dropout 捏掉一些節點
           new_defs.push({type:'dropout', drop_prob: def.drop_prob});
         }
 
@@ -102,6 +103,7 @@ Net.prototype = {
   forward: function(V, is_training) {
     if(typeof(is_training) === 'undefined') is_training = false;
     var act = this.layers[0].forward(V, is_training);
+    // 從輸入層開始逐層正向傳遞
     for(var i=1;i<this.layers.length;i++) {
       act = this.layers[i].forward(act, is_training);
     }
@@ -118,11 +120,12 @@ Net.prototype = {
   // backprop: compute gradients wrt all parameters
   backward: function(y) {
     var N = this.layers.length;
+    // 從輸出層開始逐層反向傳遞
     var loss = this.layers[N-1].backward(y); // last layer assumed to be loss layer
     for(var i=N-2;i>=0;i--) { // first layer assumed input
       this.layers[i].backward();
     }
-    return loss;
+    return loss; // loss 代表損失值，通常是錯誤率
   },
   getParamsAndGrads: function() {
     // accumulate parameters and gradients for the entire network

@@ -1,6 +1,6 @@
 const Util = require('./Util')
 const Vol = require('./Vol')
-
+// 卷積層
 var ConvLayer = module.exports = function(opt) {
   var opt = opt || {};
 
@@ -44,13 +44,13 @@ ConvLayer.prototype = {
     var xy_stride = this.stride |0;
 
     for(var d=0;d<this.out_depth;d++) {
-      var f = this.filters[d];
+      var f = this.filters[d]; // f 是遮罩
       var x = -this.pad |0;
       var y = -this.pad |0;
       for(var ay=0; ay<this.out_sy; y+=xy_stride,ay++) {  // xy_stride
         x = -this.pad |0;
         for(var ax=0; ax<this.out_sx; x+=xy_stride,ax++) {  // xy_stride
-
+          // 遮罩部分的卷積開始
           // convolve centered at this particular location
           var a = 0.0;
           for(var fy=0;fy<f.sy;fy++) {
@@ -59,8 +59,9 @@ ConvLayer.prototype = {
               var ox = x+fx;
               if(oy>=0 && oy<V_sy && ox>=0 && ox<V_sx) {
                 for(var fd=0;fd<f.depth;fd++) {
+                  // 以下寫這麼複雜是為了加速，故意不做函數呼叫
                   // avoid function call overhead (x2) for efficiency, compromise modularity :(
-                  a += f.w[((f.sx * fy)+fx)*f.depth+fd] * V.w[((V_sx * oy)+ox)*V.depth+fd];
+                  a += f.w[((f.sx * fy)+fx)*f.depth+fd] * V.w[((V_sx * oy)+ox)*V.depth+fd]; // a+= 遮罩*權重
                 }
               }
             }
@@ -101,8 +102,8 @@ ConvLayer.prototype = {
                   // avoid function call overhead (x2) for efficiency, compromise modularity :(
                   var ix1 = ((V_sx * oy)+ox)*V.depth+fd;
                   var ix2 = ((f.sx * fy)+fx)*f.depth+fd;
-                  f.dw[ix2] += V.w[ix1]*chain_grad;
-                  V.dw[ix1] += f.w[ix2]*chain_grad;
+                  f.dw[ix2] += V.w[ix1]*chain_grad; // 乘法的梯度 d (V * f) / df
+                  V.dw[ix1] += f.w[ix2]*chain_grad; // 乘法的梯度 d (V * f) / dV
                 }
               }
             }
